@@ -1,0 +1,65 @@
+﻿@model catbook.Models.cat
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>cat</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="id" />
+            <div class="form-group">
+                <label asp-for="name" class="control-label"></label>
+                <input asp-for="name" class="form-control" />
+                <span asp-validation-for="name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="photo" class="control-label"></label>
+                <input asp-for="photo" class="form-control" />
+                <span asp-validation-for="photo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="about" class="control-label"></label>
+                <input asp-for="about" class="form-control" />
+                <span asp-validation-for="about" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="status" class="control-label"></label>
+                <input asp-for="status" class="form-control" />
+                <span asp-validation-for="status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="vaccinated" class="control-label"></label>
+                <input asp-for="vaccinated" class="form-control" />
+                <span asp-validation-for="vaccinated" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="neutered" class="control-label"></label>
+                <input asp-for="neutered" class="form-control" />
+                <span asp-validation-for="neutered" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="vaccinationbook" class="control-label"></label>
+                <input asp-for="vaccinationbook" class="form-control" />
+                <span asp-validation-for="vaccinationbook" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
