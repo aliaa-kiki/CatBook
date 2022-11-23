@@ -5,5 +5,10 @@
 
         public cat cat { get; set; }
         public trait trait { get; set; }
+
+        public catTrait()
+        {
+                
+        }
     }
 }

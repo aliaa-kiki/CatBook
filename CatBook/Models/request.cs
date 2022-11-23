@@ -10,5 +10,10 @@ namespace catbook.Models
         public string message { get; set; }
         public string contact { get; set; }
         public string status { get; set; }
+
+        public request()
+        {
+
+        }
     }
 }

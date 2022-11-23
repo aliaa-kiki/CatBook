@@ -5,5 +5,10 @@
         public int id { get; set; }
         public string name { get; set; }
         public int type { get; set; }
+
+        public trait()
+        {
+
+        }
     }
 }
