@@ -1,16 +1,16 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using CatBook.Data;
 using CatBook.Areas.Identity.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+builder.Services.AddDbContext<catBookDbContext>(options =>
     options.UseSqlServer(connectionString));
 
+
 builder.Services.AddDefaultIdentity<CatBookUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddEntityFrameworkStores<catBookDbContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
