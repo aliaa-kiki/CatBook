@@ -15,6 +15,8 @@ namespace catbook.Models
         public int vaccinationbook { get; set;}
         public CatBookUser newUser { get; set;}
 
+        public virtual ICollection<catTrait> catTtraits { get; set; }
+
         public cat()
         {
 

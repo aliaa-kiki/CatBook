@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using CatBook.Data;
 using catbook.Models;
+using CatBook.Areas.Identity.Data;
 
 namespace CatBook.Controllers
 {
     public class catsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly catBookDbContext _context;
 
-        public catsController(ApplicationDbContext context)
+        public catsController(catBookDbContext context)
         {
             _context = context;
         }
@@ -22,18 +22,18 @@ namespace CatBook.Controllers
         // GET: cats
         public async Task<IActionResult> Index()
         {
-              return View(await _context.cat.ToListAsync());
+              return View(await _context.cats.ToListAsync());
         }
 
         // GET: cats/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.cat == null)
+            if (id == null || _context.cats == null)
             {
                 return NotFound();
             }
 
-            var cat = await _context.cat
+            var cat = await _context.cats
                 .FirstOrDefaultAsync(m => m.id == id);
             if (cat == null)
             {
@@ -68,12 +68,12 @@ namespace CatBook.Controllers
         // GET: cats/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.cat == null)
+            if (id == null || _context.cats == null)
             {
                 return NotFound();
             }
 
-            var cat = await _context.cat.FindAsync(id);
+            var cat = await _context.cats.FindAsync(id);
             if (cat == null)
             {
                 return NotFound();
@@ -119,12 +119,12 @@ namespace CatBook.Controllers
         // GET: cats/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.cat == null)
+            if (id == null || _context.cats == null)
             {
                 return NotFound();
             }
 
-            var cat = await _context.cat
+            var cat = await _context.cats
                 .FirstOrDefaultAsync(m => m.id == id);
             if (cat == null)
             {
@@ -139,14 +139,14 @@ namespace CatBook.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.cat == null)
+            if (_context.cats == null)
             {
                 return Problem("Entity set 'ApplicationDbContext.cat'  is null.");
             }
-            var cat = await _context.cat.FindAsync(id);
+            var cat = await _context.cats.FindAsync(id);
             if (cat != null)
             {
-                _context.cat.Remove(cat);
+                _context.cats.Remove(cat);
             }
             
             await _context.SaveChangesAsync();
@@ -155,7 +155,7 @@ namespace CatBook.Controllers
 
         private bool catExists(int id)
         {
-          return _context.cat.Any(e => e.id == id);
+          return _context.cats.Any(e => e.id == id);
         }
     }
 }

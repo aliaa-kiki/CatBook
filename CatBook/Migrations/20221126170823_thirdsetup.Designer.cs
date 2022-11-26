@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CatBook.Migrations
 {
     [DbContext(typeof(catBookDbContext))]
-    [Migration("20221123160805_firstSetup")]
-    partial class firstSetup
+    [Migration("20221126170823_thirdsetup")]
+    partial class thirdsetup
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -87,6 +87,56 @@ namespace CatBook.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("catbook.Models.cat", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
+
+                    b.Property<string>("about")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("neutered")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("newUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("originalUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("photo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("vaccinated")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("vaccinationbook")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("newUserId");
+
+                    b.HasIndex("originalUserId");
+
+                    b.ToTable("cat");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -224,6 +274,21 @@ namespace CatBook.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("catbook.Models.cat", b =>
+                {
+                    b.HasOne("CatBook.Areas.Identity.Data.CatBookUser", "newUser")
+                        .WithMany()
+                        .HasForeignKey("newUserId");
+
+                    b.HasOne("CatBook.Areas.Identity.Data.CatBookUser", "originalUser")
+                        .WithMany()
+                        .HasForeignKey("originalUserId");
+
+                    b.Navigation("newUser");
+
+                    b.Navigation("originalUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
