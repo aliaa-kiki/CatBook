@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CatBook.Migrations
 {
     [DbContext(typeof(catBookDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    partial class catBookDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -94,12 +94,6 @@ namespace CatBook.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("newUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("originalUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("photo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -107,6 +101,10 @@ namespace CatBook.Migrations
                     b.Property<string>("status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("userId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("vaccinated")
                         .IsRequired()
@@ -117,9 +115,7 @@ namespace CatBook.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("newUserId");
-
-                    b.HasIndex("originalUserId");
+                    b.HasIndex("userId");
 
                     b.ToTable("cats");
                 });
@@ -155,29 +151,30 @@ namespace CatBook.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
 
+                    b.Property<int>("catId")
+                        .HasColumnType("int");
+
                     b.Property<string>("contact")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("fromUserId")
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("message")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("senderUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("toUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("id");
 
-                    b.HasIndex("fromUserId");
+                    b.HasIndex("catId");
 
-                    b.HasIndex("toUserId");
+                    b.HasIndex("senderUserId");
 
                     b.ToTable("requests");
                 });
@@ -204,17 +201,13 @@ namespace CatBook.Migrations
 
             modelBuilder.Entity("catbook.Models.cat", b =>
                 {
-                    b.HasOne("CatBook.Areas.Identity.Data.CatBookUser", "newUser")
+                    b.HasOne("CatBook.Areas.Identity.Data.CatBookUser", "CatBookUser")
                         .WithMany()
-                        .HasForeignKey("newUserId");
+                        .HasForeignKey("userId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("CatBook.Areas.Identity.Data.CatBookUser", "originalUser")
-                        .WithMany()
-                        .HasForeignKey("originalUserId");
-
-                    b.Navigation("newUser");
-
-                    b.Navigation("originalUser");
+                    b.Navigation("CatBookUser");
                 });
 
             modelBuilder.Entity("catbook.Models.catTrait", b =>
@@ -238,22 +231,27 @@ namespace CatBook.Migrations
 
             modelBuilder.Entity("catbook.Models.request", b =>
                 {
-                    b.HasOne("CatBook.Areas.Identity.Data.CatBookUser", "fromUser")
+                    b.HasOne("catbook.Models.cat", "requestedCat")
+                        .WithMany("receivedRequests")
+                        .HasForeignKey("catId")
+                        .IsRequired();
+
+                    b.HasOne("CatBook.Areas.Identity.Data.CatBookUser", "senderUser")
                         .WithMany()
-                        .HasForeignKey("fromUserId");
+                        .HasForeignKey("senderUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("CatBook.Areas.Identity.Data.CatBookUser", "toUser")
-                        .WithMany()
-                        .HasForeignKey("toUserId");
+                    b.Navigation("requestedCat");
 
-                    b.Navigation("fromUser");
-
-                    b.Navigation("toUser");
+                    b.Navigation("senderUser");
                 });
 
             modelBuilder.Entity("catbook.Models.cat", b =>
                 {
                     b.Navigation("catTtraits");
+
+                    b.Navigation("receivedRequests");
                 });
 #pragma warning restore 612, 618
         }
