@@ -1,10 +1,12 @@
 ﻿using catbook.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection.Metadata;
 
 namespace CatBook.Areas.Identity.Data
 {
-    public class catBookDbContext : DbContext
+    public class catBookDbContext : IdentityDbContext<CatBookUser>
     {
         public catBookDbContext(DbContextOptions<catBookDbContext> options) : base(options)
         {
@@ -12,6 +14,8 @@ namespace CatBook.Areas.Identity.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder
                 .Entity<request>()
                 .HasOne(e => e.requestedCat)
@@ -23,6 +27,7 @@ namespace CatBook.Areas.Identity.Data
         public DbSet<catTrait> catTraits { get; set; }
         public DbSet<trait> traits { get; set; }
         public DbSet<request> requests { get; set; }
+       
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
