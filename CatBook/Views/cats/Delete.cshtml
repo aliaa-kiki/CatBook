@@ -54,6 +54,12 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.vaccinationbook)
         </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CatBookUser)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CatBookUser.Id)
+        </dd>
     </dl>
     
     <form asp-action="Delete">
