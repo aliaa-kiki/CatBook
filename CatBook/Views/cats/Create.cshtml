@@ -23,7 +23,7 @@
                 <label asp-for="gender" class="control-label"></label>
                 @Html.DropDownListFor(m => m.gender,
                 new SelectList(Enum.GetValues(typeof(catbook.Models.genders)))
-                ,"Select vaccination status")
+                ,"Select gender")
                 <span asp-validation-for="gender" class="text-danger"></span>
             </div>
             <div class="form-group">

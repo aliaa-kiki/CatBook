@@ -41,7 +41,6 @@ namespace catbook.Models
         completed =1,
         incomplete =2,
         none =3
-
     }
 
     public enum statusStates 

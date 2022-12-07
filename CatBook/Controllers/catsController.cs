@@ -27,6 +27,8 @@ namespace CatBook.Controllers
         {
             var model = await _context.cats
                            .Where(predicate: a => a.CatBookUser.Id == HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value)
+                           //.Where(predicate: a => a.status == statusStates.forAdoption)
+                           .OrderBy(a => a.status)
                            .ToListAsync();
             return View(model);
         }
@@ -103,7 +105,7 @@ namespace CatBook.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Edit(int id, [Bind("id,name,photo,about,userId,status,vaccinated,neutered,vaccinationbook")] cat cat)
+        public async Task<IActionResult> Edit(int id, [Bind("id,name,gender,photo,about,userId,status,vaccinated,neutered,vaccinationbook")] cat cat)
         {
             if (id != cat.id)
             {
@@ -112,6 +114,7 @@ namespace CatBook.Controllers
 
             if (ModelState.IsValid)
             {
+                System.Diagnostics.Debug.WriteLine("Model state state is valid");
                 try
                 {
                     _context.Update(cat);
