@@ -10,6 +10,7 @@
 <div>
     <h4>cat</h4>
     <hr />
+    <img src="@Html.DisplayFor(model => model.photo)">
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.name)
@@ -17,11 +18,11 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.name)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.photo)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.gender)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.photo)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.gender)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.about)

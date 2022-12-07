@@ -21,6 +21,11 @@ namespace CatBook.Areas.Identity.Data
                 .HasOne(e => e.requestedCat)
                 .WithMany(z => z.receivedRequests)
                 .OnDelete(DeleteBehavior.ClientSetNull);
+
+            modelBuilder
+                .Entity<cat>()
+                .Property(p => p.status)
+                .HasDefaultValue(statusStates.forAdoption);
         }
 
         public DbSet<cat> cats { get; set; }

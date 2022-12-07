@@ -178,10 +178,10 @@ namespace CatBook.Migrations
                     photo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     about = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     userId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    vaccinated = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    neutered = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    vaccinationbook = table.Column<int>(type: "int", nullable: false)
+                    status = table.Column<int>(type: "int", nullable: false, defaultValue: 1),
+                    vaccinated = table.Column<int>(type: "int", nullable: false),
+                    neutered = table.Column<bool>(type: "bit", nullable: false),
+                    vaccinationbook = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

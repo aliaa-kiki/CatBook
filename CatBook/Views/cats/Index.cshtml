@@ -17,6 +17,9 @@
                 @Html.DisplayNameFor(model => model.name)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.gender)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.photo)
             </th>
             <th>
@@ -47,7 +50,10 @@
                 @Html.DisplayFor(modelItem => item.name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.photo)
+                @Html.DisplayFor(modelItem => item.gender)
+            </td>
+            <td>
+                    <img src="@Html.DisplayFor(modelItem => item.photo)">
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.about)

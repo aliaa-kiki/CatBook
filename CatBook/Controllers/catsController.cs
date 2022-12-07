@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CatBook.Areas.Identity.Data;
 using catbook.Models;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CatBook.Controllers
 {
@@ -21,6 +22,7 @@ namespace CatBook.Controllers
         }
 
         // GET: cats
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var model = await _context.cats
@@ -30,6 +32,7 @@ namespace CatBook.Controllers
         }
 
         // GET: cats/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.cats == null)
@@ -49,6 +52,7 @@ namespace CatBook.Controllers
         }
 
         // GET: cats/Create
+        [Authorize]
         public IActionResult Create()
         {
             ViewData["userId"] = new SelectList(_context.Users, "Id", "Id");
@@ -60,19 +64,23 @@ namespace CatBook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,name,photo,about,userId,status,vaccinated,neutered,vaccinationbook")] cat cat)
+        public async Task<IActionResult> Create([Bind("id,name,gender,photo,about,userId,vaccinated,neutered,vaccinationbook")] cat cat)
         {
+            ModelState.Remove("status");
             if (ModelState.IsValid)
             {
+                System.Diagnostics.Debug.WriteLine("Model state state is valid");
                 _context.Add(cat);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            System.Diagnostics.Debug.WriteLine("ModelBinderAttribute state is NOT valid");
             ViewData["userId"] = new SelectList(_context.Users, "Id", "Id", cat.userId);
             return View(cat);
         }
 
         // GET: cats/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.cats == null)
@@ -94,6 +102,7 @@ namespace CatBook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("id,name,photo,about,userId,status,vaccinated,neutered,vaccinationbook")] cat cat)
         {
             if (id != cat.id)
@@ -126,6 +135,7 @@ namespace CatBook.Controllers
         }
 
         // GET: cats/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.cats == null)
@@ -147,6 +157,7 @@ namespace CatBook.Controllers
         // POST: cats/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.cats == null)

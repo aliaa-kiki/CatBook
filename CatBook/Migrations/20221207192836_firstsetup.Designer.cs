@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CatBook.Migrations
 {
     [DbContext(typeof(catBookDbContext))]
-    [Migration("20221203204000_firstsetup")]
+    [Migration("20221207192836_firstsetup")]
     partial class firstsetup
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -105,27 +105,26 @@ namespace CatBook.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("neutered")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("neutered")
+                        .HasColumnType("bit");
 
                     b.Property<string>("photo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("status")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(1);
 
                     b.Property<string>("userId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("vaccinated")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("vaccinationbook")
+                    b.Property<int>("vaccinated")
                         .HasColumnType("int");
+
+                    b.Property<bool>("vaccinationbook")
+                        .HasColumnType("bit");
 
                     b.HasKey("id");
 
