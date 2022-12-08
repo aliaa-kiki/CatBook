@@ -14,13 +14,13 @@
     <thead>
         <tr>
             <th>
+                
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.name)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.gender)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.photo)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.about)
@@ -44,13 +44,13 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                    <img src="@Html.DisplayFor(modelItem => item.photo)" class="img-thumbnail" style="width: 100px;">
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.gender)
-            </td>
-            <td>
-                    <img src="@Html.DisplayFor(modelItem => item.photo)">
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.about)

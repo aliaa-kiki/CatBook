@@ -1,0 +1,46 @@
+﻿@model IEnumerable<catbook.Models.cat>
+
+@{
+    ViewData["Title"] = "Explore";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 col-xs-6 border-primary md-3">
+            <div class="card md-3" style="max-width: 300px;"> 
+                <div class="row g-0">
+                    <div class="col-md-12">
+                        <div class="card-header text-dark bg-light">
+                            <p class="card-text">
+                                <h5 class="card-title">
+                                    @item.name
+                                </h5>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="">
+                        <img src="@item.photo" class="rounded-3" width="100%" alt="@item.name">
+                    </div>
+                    <div class="">
+                        <div class="card-body">
+                            <p class="card-text"><b>About: </b>@item.about</p>
+                            <p class="card-text"><b>Gender: </b>@item.gender</p>
+                            <p class="card-text"><b>Vaccinations: </b>@item.vaccinated</p>
+                            <p class="card-text"><b>Neutered: </b>@item.neutered</p>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card-footer">
+                            <p class="card-text">
+                                <a class="btn btn-secondary float-left"><i class="bi bi-envelope-fill"></i> Send request</a>
+                                <a asp-controller="cats"  asp-action="Details" asp-route-id="@item.id" class="btn btn-outline-secondary float-end"><i class="bi bi-info-circle-fill"></i> Details</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
