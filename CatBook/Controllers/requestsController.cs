@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CatBook.Areas.Identity.Data;
 using catbook.Models;
-using System.Collections;
 
 namespace CatBook.Controllers
 {
@@ -48,9 +47,9 @@ namespace CatBook.Controllers
         }
 
         // GET: requests/Create
-        public IActionResult Create()
+        public IActionResult Create(string _requestedCat)
         {
-            ViewData["catId"] = new SelectList(_context.cats, "id", "id");
+            ViewData["catId"] = new SelectList(_requestedCat);
             ViewData["senderUserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
@@ -60,15 +59,17 @@ namespace CatBook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(string _requestedCat, [Bind("id,senderUserId,catId,message,contact")] request request)
+        public async Task<IActionResult> Create([Bind("id,senderUserId,catId,message,contact")] request request)
         {
             if (ModelState.IsValid)
             {
+                System.Diagnostics.Debug.WriteLine("Model state state is valid");
                 _context.Add(request);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["catId"] = _requestedCat;
+            System.Diagnostics.Debug.WriteLine("Model state state is NOT valid");
+            ViewData["catId"] = new SelectList(_context.cats, "id", "id", request.catId);
             ViewData["senderUserId"] = new SelectList(_context.Users, "Id", "Id", request.senderUserId);
             return View(request);
         }
