@@ -25,7 +25,7 @@ namespace CatBook.Areas.Identity.Data
             modelBuilder
                 .Entity<cat>()
                 .Property(p => p.status)
-                .HasDefaultValue(statusStates.forAdoption);
+                .HasDefaultValue(statusStates.available);
         }
 
         public DbSet<cat> cats { get; set; }

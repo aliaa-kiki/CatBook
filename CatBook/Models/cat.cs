@@ -45,7 +45,7 @@ namespace catbook.Models
 
     public enum statusStates 
     {
-        forAdoption =1,
+        available =1,
         adopted =2,
         removed =3
     }

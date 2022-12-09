@@ -7,10 +7,10 @@
 
 <h1>Details</h1>
 
-<div>
+<div class="container-fluid">
     <h4>cat</h4>
     <hr />
-    <img src="@Html.DisplayFor(model => model.photo)" class="m-4" style="max-width: 400px;">
+    <img src="@Html.DisplayFor(model => model.photo)" class="m-4 float-end rounded m-4 " style="max-width: 400px;">
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.name)
@@ -63,6 +63,5 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-secondary float-left"><i class="bi bi-envelope-fill"></i> Send request</a>
 </div>

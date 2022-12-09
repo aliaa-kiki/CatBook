@@ -34,7 +34,11 @@
                     <div class="col-md-12">
                         <div class="card-footer">
                             <p class="card-text">
-                                <a class="btn btn-secondary float-left"><i class="bi bi-envelope-fill"></i> Send request</a>
+                                <form asp-controller="requests" asp-action="Create" method="post">
+                                    <input name="_requestedCat" type="text" value="@item.id">
+                                    <br /><button type="submit" class="btn btn-secondary float-left"><i class="bi bi-envelope-fill"></i> Send request2</button>
+                                </form>
+                                
                                 <a asp-controller="cats"  asp-action="Details" asp-route-id="@item.id" class="btn btn-outline-secondary float-end"><i class="bi bi-info-circle-fill"></i> Details</a>
                             </p>
                         </div>
