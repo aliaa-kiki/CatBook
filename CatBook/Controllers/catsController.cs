@@ -27,7 +27,6 @@ namespace CatBook.Controllers
         {
             var model = await _context.cats
                            .Where(predicate: a => a.CatBookUser.Id == HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value)
-                           //.Where(predicate: a => a.status == statusStates.forAdoption)
                            .OrderBy(a => a.status)
                            .ToListAsync();
             return View(model);

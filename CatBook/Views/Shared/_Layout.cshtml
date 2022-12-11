@@ -23,9 +23,15 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="explore">Explore</a>
                         </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="cats" asp-action="index">My cats</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="requests" asp-action="index">Requests</a>
+                        </li>
+                        }
                     </ul>
                 </div>
                 <partial name="_LoginPartial" />

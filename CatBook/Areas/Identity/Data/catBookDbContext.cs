@@ -38,6 +38,7 @@ namespace CatBook.Areas.Identity.Data
         {
             optionsBuilder.UseSqlServer("Server = (localdb)\\mssqllocaldb; Database = CatBook; Trusted_Connection = True; MultipleActiveResultSets = true");
             base.OnConfiguring(optionsBuilder);
+            optionsBuilder.EnableSensitiveDataLogging();
         }
 
        

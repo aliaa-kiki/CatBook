@@ -1,18 +1,23 @@
 ﻿@model IEnumerable<catbook.Models.request>
+@using System.Security.Claims;
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+@{
+    string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+}
+<h1>Requests</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<h4>Recieved requests</h4>
 <table class="table">
     <thead>
         <tr>
+            <th>
+                
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.message)
             </th>
@@ -23,32 +28,88 @@
                 @Html.DisplayNameFor(model => model.senderUser)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.requestedCat)
+                @Html.DisplayNameFor(model => model.requestedCat.name)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
+            @if (item.senderUserId != userId)
+            {
+                <tr>
+                    <td>
+                        <img src="@Html.DisplayFor(modelItem => item.requestedCat.photo)" class="img-thumbnail" style="width: 100px;">
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.message)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.contact)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.senderUser.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.requestedCat.name)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                    </td>
+                </tr>
+                
+            }
+       }
+
+    </tbody>
+</table>
+
+<h4>Sent requests</h4>
+<table class="table">
+    <thead>
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.message)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.contact)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.senderUser.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.requestedCat.id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
-            </td>
+            <th>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.message)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.contact)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.requestedCat.name)
+            </th>
+            <th></th>
         </tr>
-}
+    </thead>
+    <tbody>
+        @foreach (var item in Model) 
+        {
+            @if (item.senderUserId == userId)
+            {
+                <tr>
+                    <td>
+                        <img src="@Html.DisplayFor(modelItem => item.requestedCat.photo)" class="img-thumbnail" style="width: 100px;">
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.message)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.contact)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.requestedCat.name)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
     </tbody>
 </table>

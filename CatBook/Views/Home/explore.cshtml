@@ -34,12 +34,20 @@
                     <div class="col-md-12">
                         <div class="card-footer">
                             <p class="card-text">
+
+                                <div class="justify-content-start">
                                 <form asp-controller="requests" asp-action="Create" method="get">
-                                    <input name="_requestedCat" type="hidden" value="@item.id">
-                                    <br /><button type="submit" class="btn btn-secondary float-left"><i class="bi bi-envelope-fill"></i> Send request2</button>
+                                    <input name="_requestedCatId" type="hidden" value="@item.id">
+                                    <input name="_requestedCatPhoto" type="hidden" value="@item.photo">
+                                    <input name="_requestedCatName" type="hidden" value="@item.name">
+                                    <button type="submit" class="btn btn-secondary "><i class="bi bi-envelope-fill"></i> Send request</button>
                                 </form>
+                                </div>
+
+                                <div class="justify-content-end">
+                                <a asp-controller="cats" asp-action="Details" asp-route-id="@item.id" class="btn btn-outline-secondary "><i class="bi bi-info-circle-fill"></i> Details</a>
+                                </div>
                                 
-                                <a asp-controller="cats"  asp-action="Details" asp-route-id="@item.id" class="btn btn-outline-secondary float-end"><i class="bi bi-info-circle-fill"></i> Details</a>
                             </p>
                         </div>
                     </div>

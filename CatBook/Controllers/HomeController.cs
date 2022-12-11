@@ -1,4 +1,5 @@
-﻿using CatBook.Areas.Identity.Data;
+﻿using catbook.Models;
+using CatBook.Areas.Identity.Data;
 using CatBook.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -29,7 +30,7 @@ namespace CatBook.Controllers
         public async Task<IActionResult> explore()
         {
             var model = await _context.cats
-                           .Where(predicate: a => a.CatBookUser.Id == HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value)
+                           .Where(predicate: a => a.status == statusStates.available)
                            .ToListAsync();
             return View(model);
         }

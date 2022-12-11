@@ -24,26 +24,11 @@
             @Html.DisplayFor(model => model.contact)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.senderUser)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.senderUser.Id)
-        </dd>
-        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.requestedCat)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.requestedCat.id)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.catId)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.catId)
+            @Html.DisplayFor(model => model.requestedCat.name)
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
