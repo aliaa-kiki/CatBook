@@ -28,6 +28,7 @@ namespace CatBook.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    catBookUserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -175,6 +176,7 @@ namespace CatBook.Migrations
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    gender = table.Column<int>(type: "int", nullable: false),
                     photo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     about = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     userId = table.Column<string>(type: "nvarchar(450)", nullable: true),
@@ -226,10 +228,9 @@ namespace CatBook.Migrations
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     senderUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    catId = table.Column<int>(type: "int", nullable: false),
+                    catId = table.Column<int>(type: "int", nullable: true),
                     message = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    contact = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    status = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    contact = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

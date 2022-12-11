@@ -1,4 +1,10 @@
 ﻿@model IEnumerable<catbook.Models.cat>
+@using System.Security.Claims;
+
+
+@{
+    string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+}
 
 @{
     ViewData["Title"] = "Explore";
@@ -8,51 +14,54 @@
 <div class="row">
     @foreach (var item in Model)
     {
-        <div class="col-md-4 col-xs-6 border-primary md-3">
-            <div class="card md-3" style="max-width: 300px;"> 
-                <div class="row g-0">
-                    <div class="col-md-12">
-                        <div class="card-header text-dark bg-light">
-                            <p class="card-text">
-                                <h5 class="card-title text-center">
-                                    @item.name
-                                </h5>
-                            </p>
+        if (item.userId != userId)
+        {
+            <div class="col-md-4 col-xs-6 border-primary md-3">
+                <div class="card md-3" style="max-width: 300px;"> 
+                    <div class="row g-0">
+                        <div class="col-md-12">
+                            <div class="card-header text-dark bg-light">
+                                <p class="card-text">
+                                    <h5 class="card-title text-center">
+                                        @item.name
+                                    </h5>
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="">
-                        <img src="@item.photo" class="rounded-3" width="100%" alt="@item.name">
-                    </div>
-                    <div class="">
-                        <div class="card-body">
-                            <p class="card-text"><b>About: </b>@item.about</p>
-                            <p class="card-text"><b>Gender: </b>@item.gender</p>
-                            <p class="card-text"><b>Vaccinations: </b>@item.vaccinated</p>
-                            <p class="card-text"><b>Neutered: </b>@item.neutered</p>
+                        <div class="">
+                            <img src="@item.photo" class="rounded-3" width="100%" alt="@item.name">
                         </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="card-footer">
-                            <p class="card-text">
+                        <div class="">
+                            <div class="card-body">
+                                <p class="card-text"><b>About: </b>@item.about</p>
+                                <p class="card-text"><b>Gender: </b>@item.gender</p>
+                                <p class="card-text"><b>Vaccinations: </b>@item.vaccinated</p>
+                                <p class="card-text"><b>Neutered: </b>@item.neutered</p>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card-footer">
+                                <p class="card-text">
 
-                                <div class="justify-content-start">
-                                <form asp-controller="requests" asp-action="Create" method="get">
-                                    <input name="_requestedCatId" type="hidden" value="@item.id">
-                                    <input name="_requestedCatPhoto" type="hidden" value="@item.photo">
-                                    <input name="_requestedCatName" type="hidden" value="@item.name">
-                                    <button type="submit" class="btn btn-secondary "><i class="bi bi-envelope-fill"></i> Send request</button>
-                                </form>
-                                </div>
+                                    <div class="justify-content-start">
+                                    <form asp-controller="requests" asp-action="Create" method="get">
+                                        <input name="_requestedCatId" type="hidden" value="@item.id">
+                                        <input name="_requestedCatPhoto" type="hidden" value="@item.photo">
+                                        <input name="_requestedCatName" type="hidden" value="@item.name">
+                                        <button type="submit" class="btn btn-secondary "><i class="bi bi-envelope-fill"></i> Send request</button>
+                                    </form>
+                                    </div>
 
-                                <div class="justify-content-end">
-                                <a asp-controller="cats" asp-action="Details" asp-route-id="@item.id" class="btn btn-outline-secondary "><i class="bi bi-info-circle-fill"></i> Details</a>
-                                </div>
+                                    <div class="justify-content-end">
+                                    <a asp-controller="cats" asp-action="Details" asp-route-id="@item.id" class="btn btn-outline-secondary "><i class="bi bi-info-circle-fill"></i> Details</a>
+                                    </div>
                                 
-                            </p>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        }
     }
 </div>

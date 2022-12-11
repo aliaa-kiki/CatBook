@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CatBook.Migrations
 {
     [DbContext(typeof(catBookDbContext))]
-    [Migration("20221207192836_firstsetup")]
+    [Migration("20221211221320_firstsetup")]
     partial class firstsetup
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -76,6 +76,9 @@ namespace CatBook.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<string>("catBookUserName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -100,6 +103,9 @@ namespace CatBook.Migrations
                     b.Property<string>("about")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("gender")
+                        .HasColumnType("int");
 
                     b.Property<string>("name")
                         .IsRequired()
@@ -164,7 +170,7 @@ namespace CatBook.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
 
-                    b.Property<int>("catId")
+                    b.Property<int?>("catId")
                         .HasColumnType("int");
 
                     b.Property<string>("contact")
@@ -178,10 +184,6 @@ namespace CatBook.Migrations
                     b.Property<string>("senderUserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
 
@@ -381,8 +383,7 @@ namespace CatBook.Migrations
                 {
                     b.HasOne("catbook.Models.cat", "requestedCat")
                         .WithMany("receivedRequests")
-                        .HasForeignKey("catId")
-                        .IsRequired();
+                        .HasForeignKey("catId");
 
                     b.HasOne("CatBook.Areas.Identity.Data.CatBookUser", "senderUser")
                         .WithMany()

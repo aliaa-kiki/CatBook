@@ -9,7 +9,7 @@ builder.Services.AddDbContext<catBookDbContext>(options =>
     options.UseSqlServer(connectionString));
 
 
-builder.Services.AddDefaultIdentity<CatBookUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<CatBookUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<catBookDbContext>();
 
 // Add services to the container.
