@@ -38,20 +38,12 @@
             </div>
         </nav>
     </header>
-    @if ( @ViewData["Title"] == "Home Page")
-    {
-        <p> this is home page</p>
-        @RenderBody()
-    }
-    else
-    {
-        <div class="container">
-            <main role="main" class="pb-3">
-                @RenderBody()
-            </main>
-        </div>
-    }
-    
+    @RenderBody()
+    <div class="container">
+        <main role="main" class="pb-3">
+            
+        </main>
+    </div>
 
     <footer class="border-top footer text-muted">
         <div class="container">
