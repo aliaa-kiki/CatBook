@@ -15,7 +15,9 @@ namespace catbook.Models
         [Display(Name = "Contact Method")]
         public string contact { get; set; }
         [ForeignKey("senderUserId")]
+        [Display(Name = "Sender")]
         public virtual CatBookUser? senderUser { get; set; }
+        [Display(Name = "Cat")]
         public virtual cat? requestedCat { get; set; }
 
         public request()
