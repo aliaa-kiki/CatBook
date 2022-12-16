@@ -10,7 +10,14 @@
 <div>
     <h4>request</h4>
     <hr />
+    <img src="@Html.DisplayFor(model => model.requestedCat.photo)" class="m-4 float-end rounded m-4 " style="max-width: 370px;">
     <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.requestedCat)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.requestedCat.name)
+        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.message)
         </dt>
@@ -23,12 +30,7 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.contact)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.requestedCat)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.requestedCat.name)
-        </dd>
+        
     </dl>
 </div>
 

@@ -56,7 +56,7 @@ namespace CatBook.Controllers
         [Authorize]
         public IActionResult Create()
         {
-            ViewData["userId"] = new SelectList(_context.Users, "Id", "Id");
+            ViewData["vaccinated"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
@@ -65,8 +65,9 @@ namespace CatBook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,name,gender,photo,about,userId,vaccinated,neutered,vaccinationbook")] cat cat)
+        public async Task<IActionResult> Create([Bind("id,name,gender,photo,about,vaccinated,neutered,vaccinationbook")] cat cat)
         {
+            cat.userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             ModelState.Remove("status");
             if (ModelState.IsValid)
             {

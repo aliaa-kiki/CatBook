@@ -56,7 +56,7 @@ namespace CatBook.Controllers
         public IActionResult Create(string _requestedCatId, string _requestedCatPhoto, string _requestedCatName)
         {
             ViewData["catId"] = new SelectList(_requestedCatId);
-            ViewData["senderUserId"] = new SelectList(_context.Users, "Id", "Id");
+            
             ViewBag.catPhoto = _requestedCatPhoto;
             ViewBag.catName = _requestedCatName;
             return View();
@@ -68,8 +68,10 @@ namespace CatBook.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Create([Bind("id,senderUserId,catId,message,contact")] request request)
+        public async Task<IActionResult> Create([Bind("id,catId,message,contact")] request request)
         {
+            request.senderUserId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            ModelState.Remove("senderUserId");
             if (ModelState.IsValid)
             {
                 System.Diagnostics.Debug.WriteLine("Model state state is valid");

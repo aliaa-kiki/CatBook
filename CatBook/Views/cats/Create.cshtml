@@ -36,13 +36,10 @@
                 <input asp-for="about" class="form-control" />
                 <span asp-validation-for="about" class="text-danger"></span>
             </div>
-            <div class="form-group" style="display : none;">
-                <label asp-for="userId" class="control-label"></label>
-                <select asp-for="userId" class ="form-control" asp-items="ViewBag.userId"></select>
-            </div>
-            
+
             <div class="form-group">
                 <label asp-for="vaccinated" class="control-label"></label>
+                <select asp-for="userId" class="form-control" asp-items="ViewBag.userId"></select>
                 @Html.DropDownListFor(m => m.vaccinated,
                 new SelectList(Enum.GetValues(typeof(catbook.Models.vaccinationStates)))
                 ,"Select vaccination status")
@@ -50,17 +47,19 @@
             </div>
             <div class="form-group">
                 <label asp-for="neutered" class="control-label"></label>
-                <input asp-for="neutered" class="form-control" />
+                <input asp-for="neutered" class="form-check" />
                 <span asp-validation-for="neutered" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="vaccinationbook" class="control-label"></label>
-                <input asp-for="vaccinationbook" class="form-control" />
+                <input asp-for="vaccinationbook" class="form-check" />
                 <span asp-validation-for="vaccinationbook" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
+
+           
         </form>
     </div>
 </div>

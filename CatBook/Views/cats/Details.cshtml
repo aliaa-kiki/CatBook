@@ -10,7 +10,7 @@
 <div class="container-fluid">
     <h4>cat</h4>
     <hr />
-    <img src="@Html.DisplayFor(model => model.photo)" class="m-4 float-end rounded m-4 " style="max-width: 400px;">
+    <img src="@Html.DisplayFor(model => model.photo)" class="m-4 float-end rounded m-4 " style="max-width: 370px;">
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.name)
@@ -58,7 +58,7 @@
             @Html.DisplayNameFor(model => model.CatBookUser)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CatBookUser.Id)
+            @Html.DisplayFor(model => model.CatBookUser.catBookUserName)
         </dd>
     </dl>
 </div>

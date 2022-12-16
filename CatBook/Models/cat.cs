@@ -21,7 +21,7 @@ namespace catbook.Models
         public vaccinationStates vaccinated { get; set; }
         [Display(Name = "Neutered")]
         public Boolean neutered { get; set; }
-        [Display(Name = "Has vaccination book")]
+        [Display(Name = "Vaccination book")]
         public Boolean vaccinationbook { get; set;}
 
         public virtual ICollection<catTrait>? catTtraits { get; set; }

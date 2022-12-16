@@ -19,6 +19,9 @@
                 
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.requestedCat.name)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.message)
             </th>
             <th>
@@ -27,9 +30,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.senderUser)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.requestedCat.name)
-            </th>
+           
             <th></th>
         </tr>
     </thead>
@@ -43,6 +44,9 @@
                         <img src="@Html.DisplayFor(modelItem => item.requestedCat.photo)" class="img-thumbnail" style="width: 100px;">
                     </td>
                     <td>
+                        @Html.DisplayFor(modelItem => item.requestedCat.name)
+                    </td>
+                    <td>
                         @Html.DisplayFor(modelItem => item.message)
                     </td>
                     <td>
@@ -51,11 +55,8 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.senderUser.catBookUserName)
                     </td>
+                    
                     <td>
-                        @Html.DisplayFor(modelItem => item.requestedCat.name)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
                         <a asp-action="Details" asp-route-id="@item.id">Details</a> |
                         <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
                     </td>
@@ -76,14 +77,15 @@
             <th>
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.requestedCat.name)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.message)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.contact)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.requestedCat.name)
-            </th>
+            
             <th></th>
         </tr>
     </thead>
@@ -97,16 +99,16 @@
                         <img src="@Html.DisplayFor(modelItem => item.requestedCat.photo)" class="img-thumbnail" style="width: 100px;">
                     </td>
                     <td>
+                        @Html.DisplayFor(modelItem => item.requestedCat.name)
+                    </td>
+                    <td>
                         @Html.DisplayFor(modelItem => item.message)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.contact)
                     </td>
+                    
                     <td>
-                        @Html.DisplayFor(modelItem => item.requestedCat.name)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
                         <a asp-action="Details" asp-route-id="@item.id">Details</a> |
                         <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
                     </td>
