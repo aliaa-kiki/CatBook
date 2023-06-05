@@ -1,8 +1,12 @@
 ﻿@model catbook.Models.request
+@using System.Security.Claims;
 
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 }
 
 <h1>Details</h1>
@@ -12,24 +16,45 @@
     <hr />
     <img src="@Html.DisplayFor(model => model.requestedCat.photo)" class="m-4 float-end rounded m-4 " style="max-width: 370px;">
     <dl class="row">
-        <dt class="col-sm-2">
+        <dt class="col-sm-4">
             @Html.DisplayNameFor(model => model.requestedCat)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-8">
             @Html.DisplayFor(model => model.requestedCat.name)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-4">
             @Html.DisplayNameFor(model => model.message)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-8">
             @Html.DisplayFor(model => model.message)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-4">
             @Html.DisplayNameFor(model => model.contact)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-8">
             @Html.DisplayFor(model => model.contact)
         </dd>
+        @{
+            if (@Html.ValueFor(model => model.requestedCat.userId) == userId)
+            {
+                <dt class = "col-sm-4">
+                    @Html.DisplayNameFor(model => model.senderUser)
+                </dt>
+                <dd class = "col-sm-8">
+                    @Html.DisplayFor(model => model.senderUser.catBookUserName)
+                </dd>
+            }
+            else
+            {
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.requestedCat.CatBookUser)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.requestedCat.CatBookUser.catBookUserName)
+                </dd>
+            }
+        }
+        
         
     </dl>
 </div>

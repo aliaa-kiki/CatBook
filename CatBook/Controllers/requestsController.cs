@@ -55,10 +55,11 @@ namespace CatBook.Controllers
         [Authorize]
         public IActionResult Create(string _requestedCatId, string _requestedCatPhoto, string _requestedCatName)
         {
-            ViewData["catId"] = new SelectList(_requestedCatId);
             
+            ViewBag.catId = _requestedCatId;
             ViewBag.catPhoto = _requestedCatPhoto;
             ViewBag.catName = _requestedCatName;
+            System.Diagnostics.Debug.WriteLine(_requestedCatId);
             return View();
         }
 
@@ -70,6 +71,7 @@ namespace CatBook.Controllers
         [Authorize]
         public async Task<IActionResult> Create([Bind("id,catId,message,contact")] request request)
         {
+            
             request.senderUserId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             ModelState.Remove("senderUserId");
             if (ModelState.IsValid)

@@ -38,15 +38,21 @@ namespace catbook.Models
 
     public enum vaccinationStates 
     {
+        [Display(Name = "Fully vaccinated")]
         completed =1,
+        [Display(Name = "Incomplete vaccinations")]
         incomplete =2,
+        [Display(Name = "Not vaccinated")] 
         none =3
     }
 
     public enum statusStates 
     {
+        [Display(Name = "For adoption")]
         available =1,
+        [Display(Name = "Adopted")] 
         adopted =2,
+        [Display(Name = "Removed")]
         removed =3
     }
 

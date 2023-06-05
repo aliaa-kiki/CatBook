@@ -37,7 +37,7 @@
     <tbody>
         @foreach (var item in Model)
         {
-            @if (item.senderUserId != userId)
+            @if (item.requestedCat.userId == userId)
             {
                 <tr>
                     <td>

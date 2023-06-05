@@ -1,9 +1,15 @@
 ﻿@model catbook.Models.cat
+@using System.Security.Claims;
 
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+@{
+    string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+}
+
 
 <h1>Details</h1>
 
@@ -12,56 +18,67 @@
     <hr />
     <img src="@Html.DisplayFor(model => model.photo)" class="m-4 float-end rounded m-4 " style="max-width: 370px;">
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-3">
             @Html.DisplayNameFor(model => model.name)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-9">
             @Html.DisplayFor(model => model.name)
         </dd>
-        <dt class="col-sm-2">
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.gender)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.gender)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-3">
             @Html.DisplayNameFor(model => model.about)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-9">
             @Html.DisplayFor(model => model.about)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-3">
             @Html.DisplayNameFor(model => model.status)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-9">
             @Html.DisplayFor(model => model.status)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-3">
             @Html.DisplayNameFor(model => model.vaccinated)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-9">
             @Html.DisplayFor(model => model.vaccinated)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-3">
             @Html.DisplayNameFor(model => model.neutered)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-9">
             @Html.DisplayFor(model => model.neutered)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-3">
             @Html.DisplayNameFor(model => model.vaccinationbook)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-9">
+            
             @Html.DisplayFor(model => model.vaccinationbook)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-3">
             @Html.DisplayNameFor(model => model.CatBookUser)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-9">
             @Html.DisplayFor(model => model.CatBookUser.catBookUserName)
         </dd>
     </dl>
 </div>
-<div>
-    <a class="btn btn-secondary float-left"><i class="bi bi-envelope-fill"></i> Send request</a>
-</div>
+
+@if (@Html.ValueFor(model => model.userId) != userId)
+{
+    <div>
+        <form asp-controller="requests" asp-action="Create" method="get">
+            <input name="_requestedCatId" type="hidden" value="@Html.ValueFor(model => model.id)">
+            <input name="_requestedCatPhoto" type="hidden" value="@Html.ValueFor(model => model.photo)">
+            <input name="_requestedCatName" type="hidden" value="@Html.ValueFor(model => model.name)">
+            <button type="submit" class="btn btn-secondary "><i class="bi bi-envelope-fill"></i> Send request</button>
+        </form>
+    </div>
+}
+
